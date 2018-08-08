@@ -1,0 +1,27 @@
+<div class="card text-white border-danger mb-3 todo-list-thumb">
+	<div class="card-header bg-danger">
+		<span *ngIf="!list.editing"><b>{{ list.listName }}</b></span>
+		<div class="form-group" *ngIf="list.editing">
+			<input (click)="$event.stopPropagation();" [(ngModel)]="list.listName" class="form-control"/>
+		</div>
+	</div>
+	<div class="card-body bg-dark">
+
+		<div class="card-text">
+			<div>
+				<span class="todo-link" style="margin: 0 5px;" (click)="editListName(list); $event.stopPropagation();" *ngIf="!list.editing">edit</span>
+				<span class="todo-link" style="margin: 0 5px;" (click)="saveListName(list); $event.stopPropagation();" *ngIf="list.editing">save</span>
+				<span class="todo-link" style="margin: 0 5px;" (click)="deleteList(list.listName); $event.stopPropagation();">delete</span>
+			</div>
+		</div>
+
+		<div>
+			<ul>
+				<li *ngFor="let item of list.listItems | itemListFilter">
+					{{ item.itemName }}
+				</li>
+			</ul>
+		</div>
+
+	</div>
+</div>

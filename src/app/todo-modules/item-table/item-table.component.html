@@ -1,0 +1,34 @@
+<div style="width: 100%;" class="mt-5">
+	<table class="table">
+		<thead class="table-dark">
+			<tr cols="12">
+				<th>Sr. No.</th>
+				<th>Item</th>
+				<th>Edit</th>
+				<th>Delete</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let item of itemList | itemListFilter; let i = index;" [class]="(i%2==0)?'table-danger':'table-secondary'">
+				<td style="width: 10%;">
+					{{ i+1 }}
+				</td>
+				<td style="width: 70%;">
+					<div *ngIf="!item.editing">
+						{{ item.itemName }}
+					</div>
+					<div class="form-group" *ngIf="item.editing">
+						<input type="text" [(ngModel)]="item.itemName" class="form-control"/>
+					</div>
+				</td>
+				<td style="width: 10%;">
+					<div class="todo-link" (click)="editItem(item)" *ngIf="!item.editing">edit</div>
+					<div class="todo-link" (click)="saveItem(item)" *ngIf="item.editing">save</div>
+				</td>
+				<td style="width: 10%;">
+					<div class="todo-link" (click)="deleteItem(item.itemName)">delete</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

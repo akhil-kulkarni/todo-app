@@ -1,0 +1,17 @@
+<div>
+	<div>
+		<todo-create-stuff [callback]="createList" type="L" [cbContext]="_this"></todo-create-stuff>
+	</div>
+
+	<div class="container">
+		<div *ngIf="showLists"  class="row" style="width: 100%; margin: auto;">
+			<div *ngFor="let list of lists | itemListFilter" class="col-lg-3 col-md-4 col-sm-6 col-12 mt-4" style="height: 200px;">
+				<todo-list-thumb [list]="list" (click)="gotoListView(list)" [callback]="deleteListCallback" [cbContext]="_this"></todo-list-thumb>
+			</div>
+		</div>
+		<div *ngIf="!showLists">
+			<todo-no-data-found stuff='lists'></todo-no-data-found>
+		</div>
+	</div>
+
+</div>
