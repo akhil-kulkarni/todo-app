@@ -9,9 +9,9 @@
 
 		<div class="card-text">
 			<div>
-				<span class="todo-link" style="margin: 0 5px;" (click)="editListName(list); $event.stopPropagation();" *ngIf="!list.editing">edit</span>
-				<span class="todo-link" style="margin: 0 5px;" (click)="saveListName(list); $event.stopPropagation();" *ngIf="list.editing">save</span>
-				<span class="todo-link" style="margin: 0 5px;" (click)="deleteList(list.listName); $event.stopPropagation();">delete</span>
+				<span class="todo-link" id="edit" style="margin: 0 5px;" (click)="editListName(list); $event.stopPropagation();" *ngIf="!list.editing">edit</span>
+				<span class="todo-link" id="save" style="margin: 0 5px;" (click)="saveListName(list); $event.stopPropagation();" *ngIf="list.editing">save</span>
+				<span class="todo-link" id="delete" style="margin: 0 5px;" (click)="deleteList(list.id, list.listName); $event.stopPropagation();">delete</span>
 			</div>
 		</div>
 

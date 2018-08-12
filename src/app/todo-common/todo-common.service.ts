@@ -7,9 +7,10 @@ export class TodoCommonService {
 
 	setList(list: Array<{}>) {
 		this.list = list;
+		sessionStorage.setItem('_todoList', JSON.stringify(this.list || {}));
 	}
 
 	getList() {
-		return this.list;
+		return this.list || (JSON.parse(sessionStorage.getItem('_todoList')));
 	}
 }

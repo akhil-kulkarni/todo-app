@@ -1,3 +1,11 @@
-table, th, td {
+todo-item-table, todo-item-table th, todo-item-table td {
 	border: 1px solid black;
+}
+
+.todo-item-table input {
+	color: black !important;
+}
+
+.todo-item-table input::placeholder {
+	color: black !important;
 }

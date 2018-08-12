@@ -24,7 +24,7 @@ const appRoutes: Routes = [
 		TodoModulesModule,
 		TodoCommonModule
 	],
-	declarations: [TodoDashboardComponent, TodoListViewComponent, TodoPagesComponent, TodoPagesComponent],
+	declarations: [TodoDashboardComponent, TodoListViewComponent, TodoPagesComponent],
 	exports: [TodoPagesComponent]
 })
 export class TodoPagesModule { }

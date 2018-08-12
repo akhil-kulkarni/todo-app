@@ -3,23 +3,13 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoDataFoundComponent } from './no-data-found.component';
 
 describe('NoDataFoundComponent', () => {
-  let component: NoDataFoundComponent;
-  let fixture: ComponentFixture<NoDataFoundComponent>;
+	let component: NoDataFoundComponent;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ NoDataFoundComponent ]
-    })
-    .compileComponents();
-  }));
+	beforeEach(() => {
+		component = new NoDataFoundComponent();
+	});
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(NoDataFoundComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+	it('should have stuff', () => {
+		expect(component.stuff).toBeTruthy();
+	});
 });

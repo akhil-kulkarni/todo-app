@@ -1,12 +1,12 @@
 <div>
 	<div>
 		<div>
-			<todo-create-stuff [callback]="createItem" type="I" [itemListName]="list.listName" [cbContext]="_this"></todo-create-stuff>
+			<todo-create-stuff [callback]="createItem" type="I" [listId]="listId" [cbContext]="self"></todo-create-stuff>
 		</div>
 	</div>
 	<div *ngIf="showItemTable">
 		<div style="margin-top: 20px;">
-			<todo-item-table [itemList]="list.listItems" [listName]="list.listName" [deleteCallback]="deleteCallback" [cbContext]="_this"></todo-item-table>
+			<todo-item-table [itemList]="list" [listId]="listId" [deleteCallback]="deleteCallback" [cbContext]="self"></todo-item-table>
 		</div>
 	</div>
 	<div *ngIf="!showItemTable">

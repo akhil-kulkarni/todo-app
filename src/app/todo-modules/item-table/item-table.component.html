@@ -1,5 +1,5 @@
 <div style="width: 100%;" class="mt-5">
-	<table class="table">
+	<table class="table todo-item-table">
 		<thead class="table-dark">
 			<tr cols="12">
 				<th>Sr. No.</th>
@@ -26,7 +26,7 @@
 					<div class="todo-link" (click)="saveItem(item)" *ngIf="item.editing">save</div>
 				</td>
 				<td style="width: 10%;">
-					<div class="todo-link" (click)="deleteItem(item.itemName)">delete</div>
+					<div class="todo-link" (click)="deleteItem(item._id)">delete</div>
 				</td>
 			</tr>
 		</tbody>

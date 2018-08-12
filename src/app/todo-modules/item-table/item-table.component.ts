@@ -10,7 +10,7 @@ export class ItemTableComponent implements OnInit {
 
 	@Input() deleteCallback: Function;
 	@Input() itemList: Array<{}>;
-	@Input() listName: string;
+	@Input() listId: string;
 	@Input() cbContext: any;
 
 	constructor(private createStuffService: CreateStuffService) {}
@@ -28,13 +28,22 @@ export class ItemTableComponent implements OnInit {
 		const prevItemName = item['prevItemName'] || null;
 		delete item['editing'];
 		delete item['prevItemName'];
-		item['lastModifiedDate'] = new Date();
-		this.createStuffService.saveItem(item, prevItemName, this.listName);
+		this.createStuffService.saveItem(this.listId, item['_id'], item['itemName']).subscribe((res) => {
+			if (!res || res.resp === 'F') {
+				item['itemName'] = prevItemName;
+				alert('Failed to update the item name');
+			}
+		});
 	}
 
-	deleteItem(itemName: string) {
-		this.itemList = this.createStuffService.deleteItem(itemName, this.listName);
-		console.log(this.itemList);
-		this.deleteCallback(this.itemList, this.cbContext);
+	deleteItem(itemId: string) {
+		this.createStuffService.deleteItem(this.listId, itemId).subscribe((res) => {
+			if (res) {
+				this.deleteCallback(res.resp, this.cbContext);
+			} else {
+				this.deleteCallback('F', this.cbContext);
+			}
+		});
 	}
+
 }

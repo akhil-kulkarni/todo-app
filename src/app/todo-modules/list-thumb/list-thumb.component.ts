@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CreateStuffService } from '../create-stuff/create-stuff.service';
+import { ThrowStmt } from '../../../../node_modules/@angular/compiler';
 
 @Component({
 	selector: 'todo-list-thumb',
@@ -27,13 +28,22 @@ export class ListThumbComponent implements OnInit {
 		const prevListName = list['prevListName'] || null;
 		delete list['editing'];
 		delete list['prevItemName'];
-		list['lastModifiedDate'] = new Date();
-		this.createStuffService.saveListName(list, prevListName);
+		this.createStuffService.saveListName(list['id'], list['listName']).subscribe((res) => {
+			if (!res || res.resp === 'F') {
+				list['listName'] = prevListName;
+				alert('Failed to update the list name');
+			}
+		});
 	}
 
-	deleteList(listName: string) {
-		const lists = this.createStuffService.deleteList(listName);
-		this.callback(lists, this.cbContext);
+	deleteList(listId: string, listName: string) {
+		this.createStuffService.deleteList(listId, listName).subscribe((res) => {
+			if (res) {
+				this.callback(res.resp, this.cbContext);
+			} else {
+				this.callback('F', this.cbContext);
+			}
+		});
 	}
 
 }

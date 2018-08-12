@@ -13,7 +13,7 @@ import { CreateStuffService } from './create-stuff.service';
 export class CreateStuffComponent implements OnInit {
 	@Input() callback: Function;
 	@Input() type: string;
-	@Input() itemListName: string;
+	@Input() listId: string;
 	@Input() cbContext: any;
 
 	createStuffForm: FormGroup;
@@ -39,16 +39,23 @@ export class CreateStuffComponent implements OnInit {
 
 	createStuff() {
 		console.log(this.createStuffForm.value.stuff + '...' + this.type + '...'
-			+ this.itemListName);
+			+ this.listId);
 		if (this.type === 'I') {
-			this.createStuffService.createItem(this.createStuffForm.value.stuff, this.itemListName);
+			this.createStuffService.createItem(this.listId, this.createStuffForm.value.stuff).subscribe((res) => {
+				this.callback(this.createStuffForm.value.stuff, this.cbContext);
+			});
 		} else if (this.type === 'L') {
-			this.createStuffService.createList(this.createStuffForm.value.stuff);
+			if (this.createStuffForm.value.stuff) {
+				this.createStuffService.createList(this.createStuffForm.value.stuff).subscribe((res) => {
+					this.callback(this.createStuffForm.value.stuff, this.cbContext);
+				});
+			} else {
+				alert('Please provide a list name...');
+			}
 		} else {
 			console.log('Invalid type');
+			this.callback(this.createStuffForm.value.stuff, this.cbContext);
 		}
-		this.callback(this.createStuffForm.value.stuff, this.cbContext);
-
 	}
 
 }

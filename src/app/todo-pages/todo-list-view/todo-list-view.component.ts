@@ -12,32 +12,62 @@ import { CreateStuffService } from '../../todo-modules/create-stuff/create-stuff
 export class TodoListViewComponent implements OnInit {
 	list: Array<{}>;
 	showItemTable = false;
-	_this: any;
+	self: any;
+	listId: string;
 	constructor(private route: ActivatedRoute, private todoCommonService: TodoCommonService, private createStuffService: CreateStuffService) {
-		this._this = this;
+		this.self = this;
 		this.list = this.todoCommonService.getList();
-		if (this.list['listItems'].length > 0) {
-			this.showItemTable = true;
-		}
+		this.listId = this.list['id'];
+		this.createStuffService.getItemsList(this.listId).subscribe((res) => {
+			if (res && res.resp === 'S') {
+				this.list = res.msg;
+				console.log(this.list);
+				if (this.list.length > 0) {
+					this.showItemTable = true;
+				}
+			}
+		});
 	}
 
 	ngOnInit() {
 
 	}
 
-	createItem(value: string, _this: any) {
-		console.log('createItem: ' + _this.list);
-		_this.list = this.createStuffService.getListByName(_this.list['listName']);
-		if (_this.list['listItems'].length > 0) {
-			_this.showItemTable = true;
-		}
+	createItem(value: string, self: any) {
+		console.log('createItem: ' + self.list);
+		self.createStuffService.getItemsList(self.listId).subscribe((res) => {
+			if (res && res.resp === 'S') {
+				self.list = res.msg;
+				console.log(self.list);
+				if (self.list.length > 0) {
+					self.showItemTable = true;
+				}
+			}
+		});
 	}
 
-	deleteCallback(itemList: Array<{}>, _this: any) {
-		if (!!itemList && itemList.length > 0) {
-			_this.showItemTable = true;
+	// deleteCallback(itemList: Array<{}>, self: any) {
+	// 	if (!!itemList && itemList.length > 0) {
+	// 		self.showItemTable = true;
+	// 	} else {
+	// 		self.showItemTable = false;
+	// 	}
+	// }
+
+	deleteCallback(status: string, self: any) {
+		if (status === 'S') {
+			self.createStuffService.getItemsList(self.listId).subscribe((res) => {
+				if (res && res.resp === 'S') {
+					self.list = res.msg;
+					if (self.list.length > 0) {
+						self.showItemTable = true;
+					} else {
+						self.showItemTable = false;
+					}
+				}
+			});
 		} else {
-			_this.showItemTable = false;
+			alert('Failed to delete list...');
 		}
 	}
 }
