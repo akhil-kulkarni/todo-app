@@ -21,7 +21,6 @@ router.get('/lists', (req, res) => {
 });
 
 router.post('/lists', (req, res) => {
-	console.log(req.body.listName);
 	listMethods.updateList(null, req.body.listName).then((resp) => {
 		console.log(resp);
 		res.send(resp);
@@ -31,8 +30,7 @@ router.post('/lists', (req, res) => {
 });
 
 router.put('/lists', (req, res) => {
-	console.log(req.body.listName);
-	listMethods.updateList(req.body.listId, req.body.listName).then((resp) => {
+	listMethods.updateList(req.query.listId, req.body.listName).then((resp) => {
 		console.log(resp);
 		res.send(resp);
 	}).catch((err) => {
@@ -41,7 +39,6 @@ router.put('/lists', (req, res) => {
 });
 
 router.delete('/lists', (req, res) => {
-	console.log(req.query.listName);
 	listMethods.deleteList(req.query.listId).then((resp) => {
 		console.log(resp);
 		res.send(resp);
@@ -60,7 +57,6 @@ router.get('/items', (req, res) => {
 });
 
 router.post('/items', (req, res) => {
-	console.log(req.body.listId, req.body.itemName);
 	itemMethods.updateItemList(req.body.listId, null, req.body.itemName).then((resp) => {
 		console.log(resp);
 		res.send(resp);
@@ -70,7 +66,7 @@ router.post('/items', (req, res) => {
 });
 
 router.put('/items', (req, res) => {
-	itemMethods.updateItemList(req.body.listId, req.body.itemId, req.body.itemName).then((resp) => {
+	itemMethods.updateItemList(req.query.listId, req.query.itemId, req.body.itemName).then((resp) => {
 		console.log(resp);
 		res.send(resp);
 	}).catch((err) => {
